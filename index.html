@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yisehak Belay — Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0a0f;
+      --bg2:       #111118;
+      --bg3:       #18181f;
+      --border:    rgba(255,255,255,0.07);
+      --border2:   rgba(255,255,255,0.14);
+      --text:      #e8e8f0;
+      --muted:     #7a7a8a;
+      --accent:    #00e5a0;
+      --accent2:   #7c6bff;
+      --accent3:   #ff6b6b;
+      --mono:      'JetBrains Mono', monospace;
+      --sans:      'Syne', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ───── NAV ───── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(10,10,15,0.8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--sans);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ───── HERO ───── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 3rem 4rem;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,160,0.06) 0%, transparent 70%);
+      top: 50%; left: 40%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-glow2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,107,255,0.06) 0%, transparent 70%);
+      top: 30%; left: 70%;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    h1 {
+      font-family: var(--sans);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    h1 .dim { color: var(--muted); }
+    h1 .green { color: var(--accent); }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2.5rem;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 4px 12px;
+      border: 1px solid var(--border2);
+      border-radius: 100px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .tag.green { border-color: rgba(0,229,160,0.3); color: var(--accent); }
+    .tag.purple { border-color: rgba(124,107,255,0.3); color: var(--accent2); }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0f;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover { background: #00ffb3; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border2);
+    }
+
+    .btn-outline:hover { border-color: var(--border2); background: var(--bg3); transform: translateY(-1px); }
+
+    /* ───── SECTIONS ───── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 3rem;
+    }
+
+    .section-inner { max-width: 960px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-family: var(--sans);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 3rem;
+    }
+
+    /* ───── ABOUT ───── */
+    #about { background: var(--bg2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      line-height: 1.9;
+    }
+
+    .about-text strong { color: var(--text); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .stat-number {
+      font-family: var(--sans);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ───── SKILLS ───── */
+    #skills { background: var(--bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .skill-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+    }
+
+    .skill-card-title {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skill-icon {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .icon-green { background: rgba(0,229,160,0.1); }
+    .icon-purple { background: rgba(124,107,255,0.1); }
+    .icon-red { background: rgba(255,107,107,0.1); }
+    .icon-blue { background: rgba(100,180,255,0.1); }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 3px 10px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--muted);
+    }
+
+    /* ───── PROJECTS ───── */
+    #projects { background: var(--bg2); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-3px);
+    }
+
+    .project-card.featured {
+      border-color: rgba(0,229,160,0.2);
+      grid-column: span 2;
+      flex-direction: row;
+      gap: 2rem;
+    }
+
+    .project-card.featured::before {
+      content: 'Featured';
+      position: absolute;
+      top: 1rem; right: 1rem;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(0,229,160,0.3);
+      padding: 2px 10px;
+      border-radius: 100px;
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .project-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: var(--bg2);
+      flex-shrink: 0;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 8px;
+    }
+
+    .project-link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .project-link:hover { color: var(--accent); border-color: rgba(0,229,160,0.3); }
+
+    .project-title {
+      font-family: var(--sans);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .stack-tag {
+      font-size: 10px;
+      padding: 2px 9px;
+      border-radius: 100px;
+      letter-spacing: 0.06em;
+    }
+
+    .stack-green { background: rgba(0,229,160,0.08); color: var(--accent); border: 1px solid rgba(0,229,160,0.2); }
+    .stack-purple { background: rgba(124,107,255,0.08); color: var(--accent2); border: 1px solid rgba(124,107,255,0.2); }
+    .stack-red { background: rgba(255,107,107,0.08); color: var(--accent3); border: 1px solid rgba(255,107,107,0.2); }
+    .stack-blue { background: rgba(100,180,255,0.08); color: #64b4ff; border: 1px solid rgba(100,180,255,0.2); }
+    .stack-gray { background: rgba(255,255,255,0.04); color: var(--muted); border: 1px solid var(--border); }
+
+    .project-featured-body { flex: 1; display: flex; flex-direction: column; }
+
+    .project-metric {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .metric { text-align: center; }
+    .metric-value {
+      font-family: var(--sans);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .metric-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* ───── EXPERIENCE ───── */
+    #experience { background: var(--bg); }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 1px;
+      background: var(--border2);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 2.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.4rem;
+      top: 6px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,229,160,0.15);
+    }
+
+    .timeline-date {
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .timeline-role {
+      font-family: var(--sans);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .timeline-org {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ───── CONTACT ───── */
+    #contact {
+      background: var(--bg2);
+      text-align: center;
+    }
+
+    #contact .section-inner { max-width: 640px; }
+
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      margin: 1.5rem 0 2.5rem;
+      transition: all 0.2s;
+    }
+
+    .contact-email:hover {
+      border-color: rgba(0,229,160,0.4);
+      color: var(--accent);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    .social-link:hover { color: var(--text); border-color: var(--border2); background: var(--bg3); }
+
+    /* ───── SHOWCASE ───── */
+    #showcase { background: var(--bg); }
+
+    .showcase-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+
+    .stab {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      cursor: pointer;
+      background: transparent;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+    }
+
+    .stab.active, .stab:hover {
+      color: var(--accent);
+      border-color: rgba(0,229,160,0.4);
+      background: rgba(0,229,160,0.05);
+    }
+
+    .showcase-panel { display: none; }
+    .showcase-panel.active { display: block; }
+
+    .showcase-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .showcase-header {
+      padding: 1.75rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .showcase-title-block {}
+    .showcase-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .showcase-title {
+      font-family: var(--sans);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .showcase-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .showcase-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .showcase-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    @media (max-width: 768px) {
+      .showcase-body { grid-template-columns: 1fr; }
+    }
+
+    .showcase-col {
+      padding: 1.75rem 2rem;
+    }
+
+    .showcase-col + .showcase-col {
+      border-left: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      .showcase-col + .showcase-col { border-left: none; border-top: 1px solid var(--border); }
+    }
+
+    .showcase-col-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .showcase-metric-row {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .sm { text-align: left; }
+    .sm-val {
+      font-family: var(--sans);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .sm-lab { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .showcase-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 1.25rem;
+    }
+
+    .code-block {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      font-size: 11px;
+      color: #a8ff78;
+      line-height: 1.7;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+
+    .code-comment { color: var(--muted); }
+    .code-key { color: #79c0ff; }
+    .code-str { color: #f69d50; }
+
+    .showcase-file-list {
+      list-style: none;
+    }
+
+    .showcase-file-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .showcase-file-list li:last-child { border-bottom: none; }
+
+    .file-icon {
+      font-size: 13px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .file-name { color: var(--text); font-family: var(--mono); }
+    .file-type { font-size: 10px; letter-spacing: 0.06em; }
+
+    .showcase-footer {
+      padding: 1.25rem 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ───── FOOTER ───── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem 3rem;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    footer span { color: var(--accent); }
+
+    /* ───── SCROLL ANIMATIONS ───── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ───── RESPONSIVE ───── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(10,10,15,0.97);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--border);
+        padding: 0.5rem 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a {
+        display: block;
+        padding: 0.75rem 1.5rem;
+        font-size: 13px;
+      }
+      section { padding: 3.5rem 1.25rem; }
+      #hero { padding: 5rem 1.25rem 3rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; flex-direction: column; }
+      h1 { font-size: 2.8rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">YB<span>.</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#about" onclick="closeNav()">About</a></li>
+      <li><a href="#skills" onclick="closeNav()">Skills</a></li>
+      <li><a href="#projects" onclick="closeNav()">Projects</a></li>
+      <li><a href="#showcase" onclick="closeNav()">Showcase</a></li>
+      <li><a href="#experience" onclick="closeNav()">Experience</a></li>
+      <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-inner">
+      <div class="hero-label">Available for internships · Summer 2026</div>
+      <h1>
+        <span class="dim">Hello, I'm</span><br>
+        Yisehak <span class="green">Belay</span>
+      </h1>
+      <p class="hero-sub">
+        Software Engineering student at Minnesota State University building distributed systems,
+        data pipelines, and full-stack applications. I turn complex data into actionable insights.
+      </p>
+      <div class="hero-tags">
+        <span class="tag green">Python · Java · SQL</span>
+        <span class="tag purple">MongoDB · Oracle · Node.js</span>
+        <span class="tag">MNSU '26 — CS + Math</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects →</a>
+        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+        <a href="https://github.com/YisehakBelay" target="_blank" class="btn btn-outline">GitHub ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner reveal">
+      <div class="section-label">// about me</div>
+      <h2>Building things that matter</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm a <strong>Computer Information Technology student</strong> at Minnesota State University, Mankato,
+            graduating Summer 2026 with a Math minor. I'm passionate about the intersection of data engineering
+            and software development.
+          </p>
+          <p>
+            My recent work includes a <strong>fraud analytics pipeline over 13.3M financial transactions</strong>
+            using MongoDB aggregations and Power BI, a distributed Oracle database system with 35% query performance gains,
+            and a full-stack REST API with 28 production-ready endpoints.
+          </p>
+          <p>
+            I'm seeking a <strong>Software Engineering or IT Internship</strong> where I can apply my skills in
+            database optimization, backend development, and data systems in a real-world environment.
+          </p>
+          <a href="resume_yisehak_belay.pdf" download class="btn btn-outline" style="display:inline-flex; margin-top: 1rem;">
+            Download Resume ↗
+          </a>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">13.3M</div>
+            <div class="stat-label">Transactions analyzed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">35%</div>
+            <div class="stat-label">Query perf gain</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">28</div>
+            <div class="stat-label">API endpoints built</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Projects shipped</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <div class="section-label reveal">// tech stack</div>
+      <h2 class="reveal">What I work with</h2>
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <div class="skill-card-title">
+            <div class="skill-icon icon-green">⌨</div>
+            Languages
+          </div>
+          <div class="skill-pills">
+            <span class="pill">Python</span>
+            <span class="pill">Java</span>
+            <span class="pill">C++</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">TypeScript</span>
+            <span class="pill">SQL</span>
+            <span class="pill">PL/SQL</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-title">
+            <div class="skill-icon icon-purple">⬡</div>
+            Databases & Data
+          </div>
+          <div class="skill-pills">
+            <span class="pill">Oracle DBMS</span>
+            <span class="pill">MongoDB</span>
+            <span class="pill">pymongo</span>
+            <span class="pill">pandas</span>
+            <span class="pill">Power BI</span>
+            <span class="pill">Aggregation Pipelines</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-title">
+            <div class="skill-icon icon-blue">◈</div>
+            Frameworks & Tools
+          </div>
+          <div class="skill-pills">
+            <span class="pill">Node.js</span>
+            <span class="pill">Express</span>
+            <span class="pill">Next.js</span>
+            <span class="pill">REST APIs</span>
+            <span class="pill">Mongoose</span>
+            <span class="pill">Git</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-title">
+            <div class="skill-icon icon-red">⬡</div>
+            Networking & Systems
+          </div>
+          <div class="skill-pills">
+            <span class="pill">Cisco Packet Tracer</span>
+            <span class="pill">VLANs</span>
+            <span class="pill">OSPF</span>
+            <span class="pill">VPN</span>
+            <span class="pill">ASA Firewall</span>
+            <span class="pill">System Design</span>
+            <span class="pill">UML</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="section-label reveal">// projects</div>
+      <h2 class="reveal">Things I've built</h2>
+      <div class="projects-grid">
+
+        <!-- FEATURED -->
+        <div class="project-card featured reveal">
+          <div class="project-icon" style="height: fit-content;">📊</div>
+          <div class="project-featured-body">
+            <div class="project-header">
+              <div>
+                <div class="project-title">Fraud Analytics Dashboard</div>
+                <div class="project-metric">
+                  <div class="metric">
+                    <div class="metric-value">13.3M</div>
+                    <div class="metric-label">Transactions</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value">10</div>
+                    <div class="metric-label">KPI Pipelines</div>
+                  </div>
+                  <div class="metric">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">Dashboard Views</div>
+                  </div>
+                </div>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/YisehakBelay/fraud-analytics-dashboard" class="project-link" target="_blank">↗ GitHub</a>
+              </div>
+            </div>
+            <p class="project-desc">
+              Full-stack analytics pipeline over a 13.3M-transaction Kaggle financial dataset. Built 10 MongoDB
+              aggregation pipelines using $lookup, $group, $match, and $addFields to reduce Power BI payload from
+              raw millions to lean summary JSON. Interactive Power BI dashboard with fraud risk signals, geographic
+              behavior maps, and customer segmentation — all 10 KPIs answered interactively.
+            </p>
+            <div class="project-stack">
+              <span class="stack-tag stack-green">MongoDB</span>
+              <span class="stack-tag stack-purple">Python</span>
+              <span class="stack-tag stack-purple">pandas</span>
+              <span class="stack-tag stack-blue">Power BI</span>
+              <span class="stack-tag stack-gray">pymongo</span>
+              <span class="stack-tag stack-gray">Star Schema</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DDBMS -->
+        <div class="project-card reveal">
+          <div class="project-header">
+            <div class="project-icon">🗄</div>
+            <div class="project-links">
+              <a href="https://github.com/YisehakBelay/distributed-database-system" class="project-link" target="_blank">↗ GitHub</a>
+            </div>
+          </div>
+          <div class="project-title">Distributed Database System</div>
+          <p class="project-desc">
+            Designed and implemented a distributed database using MySQL and MariaDB Galera Cluster, achieving ~35%
+            query performance improvement. Built a synchronous multi-master replication strategy across three
+            global nodes (LA, Tokyo, Buenos Aires) for high availability and consistency.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag stack-green">MySQL</span>
+            <span class="stack-tag stack-green">MariaDB Galera</span>
+            <span class="stack-tag stack-red">ASA Firewall</span>
+            <span class="stack-tag stack-gray">VLANs</span>
+            <span class="stack-tag stack-gray">Replication</span>
+          </div>
+        </div>
+
+        <!-- STUDENT API -->
+        <div class="project-card reveal">
+          <div class="project-header">
+            <div class="project-icon">⚡</div>
+            <div class="project-links">
+              <a href="https://github.com/YisehakBelay/student-api" class="project-link" target="_blank">↗ GitHub</a>
+            </div>
+          </div>
+          <div class="project-title">Student Management REST API</div>
+          <p class="project-desc">
+            Production-structured REST API with 28 endpoints spanning students, courses, enrollments,
+            attendance, and fee modules. Normalized MongoDB schema with Mongoose across 5 collections,
+            GPA calculation, and payment tracking.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag stack-green">Node.js</span>
+            <span class="stack-tag stack-green">Express</span>
+            <span class="stack-tag stack-purple">MongoDB</span>
+            <span class="stack-tag stack-gray">Mongoose</span>
+            <span class="stack-tag stack-gray">REST</span>
+          </div>
+        </div>
+
+        <!-- STUDENT DASHBOARD -->
+        <div class="project-card reveal">
+          <div class="project-header">
+            <div class="project-icon">🖥</div>
+            <div class="project-links">
+              <a href="https://github.com/YisehakBelay/student-dashboard" class="project-link" target="_blank">↗ GitHub</a>
+            </div>
+          </div>
+          <div class="project-title">Student Dashboard</div>
+          <p class="project-desc">
+            Full-stack dashboard built with TypeScript and Next.js, consuming the Student Management API
+            to display GPA summaries, enrollment status, and attendance records in a unified, responsive UI.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag stack-blue">TypeScript</span>
+            <span class="stack-tag stack-blue">Next.js</span>
+            <span class="stack-tag stack-gray">REST API</span>
+          </div>
+        </div>
+
+        <!-- DISNEY -->
+        <div class="project-card reveal">
+          <div class="project-header">
+            <div class="project-icon">🎢</div>
+            <div class="project-links">
+              <a href="https://github.com/YisehakBelay/disney-optimization-system" class="project-link" target="_blank">↗ GitHub</a>
+            </div>
+          </div>
+          <div class="project-title">Disney Guest Experience System</div>
+          <p class="project-desc">
+            Full system design for a Disney-style theme park guest experience platform — ride booking,
+            MagicBand integration, itinerary planning, and real-time feedback. Modeled across 4 SDLC
+            phases with complete UML documentation and a working MySQL demo database.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag stack-purple">UML</span>
+            <span class="stack-tag stack-green">MySQL</span>
+            <span class="stack-tag stack-gray">SDLC</span>
+            <span class="stack-tag stack-gray">WBS</span>
+          </div>
+        </div>
+
+        <!-- NETWORKING -->
+        <div class="project-card reveal">
+          <div class="project-header">
+            <div class="project-icon">🔒</div>
+            <div class="project-links">
+              <a href="https://github.com/YisehakBelay/enterprise-network-simulation" class="project-link" target="_blank">↗ GitHub</a>
+            </div>
+          </div>
+          <div class="project-title">Enterprise Network Simulation</div>
+          <p class="project-desc">
+            Configured enterprise-level network topologies using VLANs, OSPF dynamic routing, and VPN tunnels.
+            Implemented ASA firewall rules restricting inter-VLAN traffic to authorized flows only,
+            reducing simulated attack surface.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag stack-red">Cisco</span>
+            <span class="stack-tag stack-red">ASA Firewall</span>
+            <span class="stack-tag stack-gray">VLANs</span>
+            <span class="stack-tag stack-gray">OSPF</span>
+            <span class="stack-tag stack-gray">VPN</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE -->
+  <section id="showcase">
+    <div class="section-inner">
+      <div class="section-label reveal">// project showcase</div>
+      <h2 class="reveal">Deep dives into the work</h2>
+
+      <div class="showcase-tabs reveal">
+        <button class="stab active" onclick="showTab('fraud', this)">📊 Fraud Analytics</button>
+        <button class="stab" onclick="showTab('ddbms', this)">🗄 Distributed DB</button>
+        <button class="stab" onclick="showTab('disney', this)">🎢 Disney System</button>
+        <button class="stab" onclick="showTab('network', this)">🔒 Network Sim</button>
+      </div>
+
+      <!-- FRAUD ANALYTICS -->
+      <div class="showcase-panel active" id="panel-fraud">
+        <div class="showcase-card">
+          <div class="showcase-header">
+            <div class="showcase-title-block">
+              <div class="showcase-eyebrow">CIS 444 — Data Analytics · Spring 2026</div>
+              <div class="showcase-title">Fraud Analytics Dashboard</div>
+              <div class="showcase-meta">Team: Rob Kokx · James Kemp · Yisehak Belay &nbsp;|&nbsp; Tools: MongoDB · Python · Power BI</div>
+            </div>
+            <div class="showcase-badges">
+              <span class="stack-tag stack-green">MongoDB</span>
+              <span class="stack-tag stack-purple">pymongo</span>
+              <span class="stack-tag stack-purple">pandas</span>
+              <span class="stack-tag stack-blue">Power BI</span>
+              <span class="stack-tag stack-gray">Star Schema</span>
+            </div>
+          </div>
+          <div class="showcase-body">
+            <div class="showcase-col">
+              <div class="showcase-col-label">// what we built</div>
+              <div class="showcase-metric-row">
+                <div class="sm"><div class="sm-val">13.3M</div><div class="sm-lab">Transactions</div></div>
+                <div class="sm"><div class="sm-val">10</div><div class="sm-lab">KPI Pipelines</div></div>
+                <div class="sm"><div class="sm-val">3</div><div class="sm-lab">Dashboard Views</div></div>
+              </div>
+              <p class="showcase-desc">
+                End-to-end analytics pipeline over a 13.3M-row financial dataset (Kaggle star schema: transactions, cards, users).
+                The core problem: Power BI can't load 13M raw documents. Solution: push all aggregation into MongoDB,
+                export tiny JSON files per KPI, load those into Power BI instead.
+              </p>
+              <p class="showcase-desc">
+                Dashboard organized into three sections: <strong style="color:var(--text)">Customer Segmentation</strong>,
+                <strong style="color:var(--text)">Geographic Behavior</strong>, and
+                <strong style="color:var(--text)">Fraud & Risk Signals</strong>.
+              </p>
+              <div class="showcase-col-label" style="margin-top:1rem;">// sample pipeline (Q8 — error cards)</div>
+              <div class="code-block"><span class="code-comment"># Find cards with more than 1 transaction error</span>
+query8 = [
+  { <span class="code-key">"$match"</span>: { <span class="code-str">"errors"</span>: { <span class="code-key">"$exists"</span>: True } } },
+  { <span class="code-key">"$group"</span>: {
+      <span class="code-str">"_id"</span>: <span class="code-str">"$card_id"</span>,
+      <span class="code-str">"errorCount"</span>: { <span class="code-key">"$sum"</span>: 1 }
+  }},
+  { <span class="code-key">"$match"</span>: { <span class="code-str">"errorCount"</span>: { <span class="code-key">"$gt"</span>: 1 } } },
+  { <span class="code-key">"$lookup"</span>: {
+      <span class="code-str">"from"</span>: <span class="code-str">"user_data"</span>,
+      <span class="code-str">"localField"</span>: <span class="code-str">"client_id"</span>,
+      <span class="code-str">"foreignField"</span>: <span class="code-str">"id"</span>,
+      <span class="code-str">"as"</span>: <span class="code-str">"customer"</span>
+  }}
+]</div>
+            </div>
+            <div class="showcase-col">
+              <div class="showcase-col-label">// project files</div>
+              <ul class="showcase-file-list">
+                <li><span class="file-icon">🐍</span><span class="file-name">final_project.py</span><span class="file-type" style="margin-left:auto;">Python · 10 pipelines</span></li>
+                <li><span class="file-icon">📊</span><span class="file-name">CS444_Visuals.pbix</span><span class="file-type" style="margin-left:auto;">Power BI Dashboard</span></li>
+                <li><span class="file-icon">📄</span><span class="file-name">Deliverable_4_Final_Report.docx</span><span class="file-type" style="margin-left:auto;">Report</span></li>
+                <li><span class="file-icon">📄</span><span class="file-name">Deliverable_3_KPI_Lineage.docx</span><span class="file-type" style="margin-left:auto;">Query → Visual Map</span></li>
+                <li><span class="file-icon">📋</span><span class="file-name">444_project_plan.docx</span><span class="file-type" style="margin-left:auto;">Project Plan</span></li>
+                <li><span class="file-icon">📦</span><span class="file-name">final_project_updated.zip</span><span class="file-type" style="margin-left:auto;">All JSON outputs</span></li>
+              </ul>
+              <div class="showcase-col-label" style="margin-top:1.5rem;">// 10 KPI questions answered</div>
+              <ul class="showcase-file-list">
+                <li><span class="file-icon">1</span><span>Demographics vs avg transaction amount</span></li>
+                <li><span class="file-icon">2</span><span>Card type/brand vs avg transaction</span></li>
+                <li><span class="file-icon">3</span><span>Top 10 states by total transaction amount</span></li>
+                <li><span class="file-icon">4</span><span>Top 10 states by transaction count</span></li>
+                <li><span class="file-icon">5</span><span>Chip vs swipe vs online comparison</span></li>
+                <li><span class="file-icon">6</span><span>Cards spending >80% of per-capita income</span></li>
+                <li><span class="file-icon">7</span><span>Day vs night transaction patterns</span></li>
+                <li><span class="file-icon">8</span><span>Cards with >1 transaction error</span></li>
+                <li><span class="file-icon">9</span><span>Negative transactions ordered by state</span></li>
+                <li><span class="file-icon">10</span><span>Single vs dual-issued card overdraft rate</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="showcase-footer">
+            <a href="https://github.com/YisehakBelay/fraud-analytics-dashboard" target="_blank" class="btn btn-outline" style="font-size:12px; padding:8px 16px;">↗ GitHub Repo</a>
+            <span style="font-size:12px; color:var(--muted);">Python · MongoDB · Power BI · Star Schema · pymongo · pandas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DDBMS -->
+      <div class="showcase-panel" id="panel-ddbms">
+        <div class="showcase-card">
+          <div class="showcase-header">
+            <div class="showcase-title-block">
+              <div class="showcase-eyebrow">CIS 440 — Distributed Database Systems · Fall 2025</div>
+              <div class="showcase-title">APEX Distributed Database System</div>
+              <div class="showcase-meta">Team of 7 · Tools: MySQL · MariaDB Galera Cluster · VLANs · ASA Firewall</div>
+            </div>
+            <div class="showcase-badges">
+              <span class="stack-tag stack-green">MySQL</span>
+              <span class="stack-tag stack-green">MariaDB Galera</span>
+              <span class="stack-tag stack-red">ASA Firewall</span>
+              <span class="stack-tag stack-gray">VLANs</span>
+            </div>
+          </div>
+          <div class="showcase-body">
+            <div class="showcase-col">
+              <div class="showcase-col-label">// what we built</div>
+              <div class="showcase-metric-row">
+                <div class="sm"><div class="sm-val">3</div><div class="sm-lab">Global Nodes</div></div>
+                <div class="sm"><div class="sm-val">~35%</div><div class="sm-lab">Query Perf Gain</div></div>
+                <div class="sm"><div class="sm-val">7</div><div class="sm-lab">Team Members</div></div>
+              </div>
+              <p class="showcase-desc">
+                APEX is a digital marketing company expanding to <strong style="color:var(--text)">Los Angeles, Tokyo, and Buenos Aires</strong>.
+                This project designs the full distributed database infrastructure: a MariaDB Galera multi-master cluster with synchronous
+                replication across all three regions.
+              </p>
+              <p class="showcase-desc">
+                If any single node goes down, the other two carry the load automatically.
+                Currency, billing, and employee data stay consistent across regions at all times.
+              </p>
+              <div class="showcase-col-label" style="margin-top:1rem;">// cluster setup</div>
+              <div class="code-block"><span class="code-comment"># Start cluster (order matters)</span>
+<span class="code-comment"># Node 1 — must start first</span>
+sudo galera_new_cluster
+
+<span class="code-comment"># Node 2 + Node 3</span>
+sudo systemctl start mariadb
+
+<span class="code-comment"># Verify cluster health</span>
+sudo mysql -u root -p \
+  -e <span class="code-str">"SHOW STATUS LIKE 'wsrep%'"</span></div>
+            </div>
+            <div class="showcase-col">
+              <div class="showcase-col-label">// project files</div>
+              <ul class="showcase-file-list">
+                <li><span class="file-icon">🗄</span><span class="file-name">Phase_2_SQL_Tables_and_Inserts.sql</span><span class="file-type" style="margin-left:auto;">Full Schema</span></li>
+                <li><span class="file-icon">📄</span><span class="file-name">CIS_440_Project_Phase_1.docx</span><span class="file-type" style="margin-left:auto;">Requirements</span></li>
+                <li><span class="file-icon">📄</span><span class="file-name">APEX_Distributed_DB_Phase_2.docx</span><span class="file-type" style="margin-left:auto;">Implementation</span></li>
+                <li><span class="file-icon">📋</span><span class="file-name">Starting_and_Stopping_Cluster.txt</span><span class="file-type" style="margin-left:auto;">Ops Guide</span></li>
+              </ul>
+              <div class="showcase-col-label" style="margin-top:1.5rem;">// security design</div>
+              <ul class="showcase-file-list">
+                <li><span class="file-icon">🔒</span><span>VLANs segment each regional office's network</span></li>
+                <li><span class="file-icon">🛡</span><span>ASA Firewalls at all 3 sites — deny by default</span></li>
+                <li><span class="file-icon">👤</span><span>Role-Based Access Control (RBAC) per department</span></li>
+                <li><span class="file-icon">💱</span><span>Multi-currency billing — each invoice links to currency_id</span></li>
+                <li><span class="file-icon">📈</span><span>Schema supports adding new regions without restructuring</span></li>
+              </ul>
+              <div class="showcase-col-label" style="margin-top:1.5rem;">// ERD + infrastructure</div>
+              <a href="https://lucid.app/lucidchart/e48846fa-864f-4733-b4ac-1f8fe7b21614/edit" target="_blank" class="btn btn-outline" style="font-size:11px; padding:6px 14px; margin-top:4px;">↗ View ERD on Lucidchart</a>
+            </div>
+          </div>
+          <div class="showcase-footer">
+            <a href="https://github.com/YisehakBelay/distributed-database-system" target="_blank" class="btn btn-outline" style="font-size:12px; padding:8px 16px;">↗ GitHub Repo</a>
+            <span style="font-size:12px; color:var(--muted);">MySQL · MariaDB Galera · VLANs · ASA Firewall · RBAC · Multi-region</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISNEY -->
+      <div class="showcase-panel" id="panel-disney">
+        <div class="showcase-card">
+          <div class="showcase-header">
+            <div class="showcase-title-block">
+              <div class="showcase-eyebrow">CIS 380 — System Analysis & Design · Spring 2025</div>
+              <div class="showcase-title">Disney Guest Experience Optimization System</div>
+              <div class="showcase-meta">Tools: UML · SDLC · MySQL · System Design · WBS</div>
+            </div>
+            <div class="showcase-badges">
+              <span class="stack-tag stack-purple">UML</span>
+              <span class="stack-tag stack-green">MySQL</span>
+              <span class="stack-tag stack-gray">SDLC</span>
+              <span class="stack-tag stack-gray">WBS</span>
+            </div>
+          </div>
+          <div class="showcase-body">
+            <div class="showcase-col">
+              <div class="showcase-col-label">// what we built</div>
+              <div class="showcase-metric-row">
+                <div class="sm"><div class="sm-val">9</div><div class="sm-lab">System Modules</div></div>
+                <div class="sm"><div class="sm-val">4</div><div class="sm-lab">SDLC Phases</div></div>
+                <div class="sm"><div class="sm-val">7</div><div class="sm-lab">DB Tables</div></div>
+              </div>
+              <p class="showcase-desc">
+                Full system design for a Disney-style theme park guest experience platform.
+                Covers ride booking, itinerary planning, MagicBand integration, real-time notifications,
+                hotel reservations, and a feedback analysis loop — all modeled with UML and a working MySQL demo DB.
+              </p>
+              <div class="showcase-col-label" style="margin-top:1rem;">// sample SQL (ride bookings)</div>
+              <div class="code-block"><span class="code-comment">-- Guest + ride bookings with JOIN</span>
+<span class="code-key">SELECT</span> g.first_name, g.last_name,
+       r.ride_name, rb.booking_time
+<span class="code-key">FROM</span> RideBookings rb
+<span class="code-key">JOIN</span> Guests g <span class="code-key">ON</span> rb.guest_id = g.guest_id
+<span class="code-key">JOIN</span> Rides r  <span class="code-key">ON</span> rb.ride_id  = r.ride_id;
+
+<span class="code-comment">-- Average ride ratings</span>
+<span class="code-key">SELECT</span> r.ride_name,
+       <span class="code-key">AVG</span>(f.rating)        <span class="code-key">AS</span> avg_rating,
+       <span class="code-key">COUNT</span>(f.feedback_id)  <span class="code-key">AS</span> num_reviews
+<span class="code-key">FROM</span> Feedback f
+<span class="code-key">JOIN</span> Rides r <span class="code-key">ON</span> f.ride_id = r.ride_id
+<span class="code-key">GROUP BY</span> r.ride_name;</div>
+            </div>
+            <div class="showcase-col">
+              <div class="showcase-col-label">// system modules (WBS)</div>
+              <ul class="showcase-file-list">
+                <li><span class="file-icon">1</span><span>Ride Booking — Reservation → Payment → Sync Band</span></li>
+                <li><span class="file-icon">2</span><span>Itinerary Planner — Preferences → Auto-plan</span></li>
+                <li><span class="file-icon">3</span><span>MagicBand — Tap → Pay Link → View Receipt</span></li>
+                <li><span class="file-icon">4</span><span>Notifications — Send → Format → Retry</span></li>
+                <li><span class="file-icon">5</span><span>System Setup — Fix lag → Infrastructure</span></li>
+                <li><span class="file-icon">6</span><span>Data Tables — Fields → Business rules</span></li>
+                <li><span class="file-icon">7</span><span>UI/UX — Review → Improve feedback loop</span></li>
+                <li><span class="file-icon">8</span><span>Queue Fix — Crowd mgmt → Wait time optimization</span></li>
+                <li><span class="file-icon">9</span><span>Feedback — Collect → Save & Analyze</span></li>
+              </ul>
+              <div class="showcase-col-label" style="margin-top:1.5rem;">// project files</div>
+              <ul class="showcase-file-list">
+                <li><span class="file-icon">🗄</span><span class="file-name">DB_Demo_Disney_Guest_Experience.sql</span></li>
+                <li><span class="file-icon">📊</span><span class="file-name">Disney_project_WBS.pdf</span></li>
+                <li><span class="file-icon">📊</span><span class="file-name">Data_dictionary_template.xlsx</span></li>
+                <li><span class="file-icon">📊</span><span class="file-name">CIS_380_Phase_1.pptx · Phase_2.pptx</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="showcase-footer">
+            <a href="https://github.com/YisehakBelay/disney-optimization-system" target="_blank" class="btn btn-outline" style="font-size:12px; padding:8px 16px;">↗ GitHub Repo</a>
+            <span style="font-size:12px; color:var(--muted);">UML · SDLC · MySQL · WBS · ERD · System Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- NETWORK -->
+      <div class="showcase-panel" id="panel-network">
+        <div class="showcase-card">
+          <div class="showcase-header">
+            <div class="showcase-title-block">
+              <div class="showcase-eyebrow">Networking Course — Fall 2025</div>
+              <div class="showcase-title">Enterprise Network Simulation</div>
+              <div class="showcase-meta">Tools: Cisco Packet Tracer · VLANs · OSPF · VPN · ASA Firewall</div>
+            </div>
+            <div class="showcase-badges">
+              <span class="stack-tag stack-red">Cisco</span>
+              <span class="stack-tag stack-red">ASA Firewall</span>
+              <span class="stack-tag stack-gray">VLANs</span>
+              <span class="stack-tag stack-gray">OSPF</span>
+              <span class="stack-tag stack-gray">VPN</span>
+            </div>
+          </div>
+          <div class="showcase-body">
+            <div class="showcase-col">
+              <div class="showcase-col-label">// what we built</div>
+              <div class="showcase-metric-row">
+                <div class="sm"><div class="sm-val">2</div><div class="sm-lab">Phases</div></div>
+                <div class="sm"><div class="sm-val">4</div><div class="sm-lab">VLANs</div></div>
+                <div class="sm"><div class="sm-val">0</div><div class="sm-lab">Unauth Flows</div></div>
+              </div>
+              <p class="showcase-desc">
+                Two-phase enterprise network simulation in Cisco Packet Tracer. Phase 1 built the core
+                multi-router topology with static routing. Phase 2 added full VLAN segmentation, OSPF
+                dynamic routing, VPN tunnels for branch communication, and ASA firewall ACLs that
+                enforce deny-by-default access policy.
+              </p>
+              <div class="showcase-col-label" style="margin-top:1rem;">// network topology</div>
+              <div class="code-block">Internet
+    │
+[ASA Firewall]  ← ACLs + DMZ
+    │
+[Core Router] ── OSPF ── [Branch Router 1]
+    │                         │
+[Layer 3 Switch]         [Branch Router 2]
+    │
+    ├── <span class="code-key">VLAN 10</span>: HR
+    ├── <span class="code-key">VLAN 20</span>: Finance
+    ├── <span class="code-key">VLAN 30</span>: Engineering
+    └── <span class="code-key">VLAN 40</span>: Management
+
+VPN Tunnel: HQ ◄────────────────► Branch</div>
+            </div>
+            <div class="showcase-col">
+              <div class="showcase-col-label">// security outcomes</div>
+              <ul class="showcase-file-list">
+                <li><span class="file-icon">🛡</span><span>VLANs isolate departments — no default cross-VLAN access</span></li>
+                <li><span class="file-icon">🔒</span><span>VPN encrypts all site-to-site traffic between branches</span></li>
+                <li><span class="file-icon">🚫</span><span>ASA ACLs deny all traffic by default — whitelist only</span></li>
+                <li><span class="file-icon">🔄</span><span>OSPF reconverges automatically on topology changes</span></li>
+                <li><span class="file-icon">👁</span><span>DMZ separates public-facing servers from internal network</span></li>
+              </ul>
+              <div class="showcase-col-label" style="margin-top:1.5rem;">// project files</div>
+              <ul class="showcase-file-list">
+                <li><span class="file-icon">📦</span><span class="file-name">yisehak_belay_Project_phase1.pkt</span><span class="file-type" style="margin-left:auto;">Phase 1</span></li>
+                <li><span class="file-icon">📦</span><span class="file-name">yisehak_belay_phase2.pkt</span><span class="file-type" style="margin-left:auto;">Phase 2 — Full Config</span></li>
+              </ul>
+              <p class="showcase-desc" style="margin-top:1rem; font-size:12px;">
+                Open <code style="color:var(--accent); font-size:11px;">.pkt</code> files in Cisco Packet Tracer 8.x
+                (free via Cisco NetAcad) to explore the full live configuration of all routers, switches, and firewalls.
+              </p>
+            </div>
+          </div>
+          <div class="showcase-footer">
+            <a href="https://github.com/YisehakBelay/enterprise-network-simulation" target="_blank" class="btn btn-outline" style="font-size:12px; padding:8px 16px;">↗ GitHub Repo</a>
+            <span style="font-size:12px; color:var(--muted);">Cisco Packet Tracer · VLANs · OSPF · VPN · ASA Firewall · ACLs</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-inner">
+      <div class="section-label reveal">// experience & involvement</div>
+      <h2 class="reveal">Where I've been</h2>
+      <div class="timeline reveal">
+
+        <div class="timeline-item">
+          <div class="timeline-date">Dec 2024 – Present</div>
+          <div class="timeline-role">Member — ColorStack</div>
+          <div class="timeline-org">Remote · National Community</div>
+          <div class="timeline-desc">
+            Active member of a national community supporting Black and Latinx computer science students.
+            Participate in mentorship programs and collaborative coding workshops that sharpen technical
+            and professional skills.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2025 – Present</div>
+          <div class="timeline-role">Member — National Society of Black Engineers (NSBE)</div>
+          <div class="timeline-org">Minnesota State University, Mankato</div>
+          <div class="timeline-desc">
+            Engaged with NSBE's mission to increase the number of culturally responsible Black engineers.
+            Networking with professionals and peers across engineering disciplines.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">Expected Summer 2026</div>
+          <div class="timeline-role">B.S. Computer Information Technology, Math Minor</div>
+          <div class="timeline-org">Minnesota State University, Mankato</div>
+          <div class="timeline-desc">
+            Coursework: Python, Java, Data Structures, Algorithms, Distributed Databases (Oracle),
+            Networking (Cisco), Information Security, Data Analytics, System Design.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">Summer 2019</div>
+          <div class="timeline-role">Volunteer</div>
+          <div class="timeline-org">Care Epilepsy Ethiopia</div>
+          <div class="timeline-desc">
+            Volunteered with a nonprofit organization supporting individuals with epilepsy in Ethiopia,
+            contributing to community outreach and awareness initiatives.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner reveal">
+      <div class="section-label">// contact</div>
+      <h2>Let's work together</h2>
+      <p style="color: var(--muted); margin-bottom: 0.5rem; font-size: 13px;">
+        I'm actively seeking Software Engineering and IT internships for Summer 2026.
+        If you have an opportunity or just want to connect — reach out.
+      </p>
+      <a href="mailto:yisehakbelay26@gmail.com" class="contact-email">
+        📧 yisehakbelay26@gmail.com
+      </a>
+      <div class="social-links">
+        <a href="https://github.com/YisehakBelay" target="_blank" class="social-link">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/in/yisehak-belay" target="_blank" class="social-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="tel:+15076131316" class="social-link">
+          📞 (507) 613-1316
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    Built with HTML · CSS · JS &nbsp;·&nbsp; <span>Yisehak Belay</span> © 2026
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function toggleNav() {
+      const links = document.getElementById('nav-links');
+      const btn = document.getElementById('nav-hamburger');
+      links.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+
+    function closeNav() {
+      document.getElementById('nav-links').classList.remove('open');
+      document.getElementById('nav-hamburger').classList.remove('open');
+    }
+
+    function showTab(id, btn) {
+      document.querySelectorAll('.showcase-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+      document.getElementById('panel-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
